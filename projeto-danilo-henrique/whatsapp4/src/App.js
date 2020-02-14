@@ -1,10 +1,13 @@
 import React from 'react';
-import './App.css';
-import styled from 'styled-components'
+
+import Inputs from './Components/Inputs';
 import Messenger from './Components/messenger';
+import styled from 'styled-components'
 
 const Container = styled.div`
   width:32%;
+  min-width:300px;
+
   background-color: #e5ddd5;
   min-height: 100vh;
   position:relative;
@@ -12,15 +15,16 @@ const Container = styled.div`
   transform: translate(-50%,0);
   border: solid 1px black;
 `
-
-
 function App() {
   return (
-    <Container>      
-        <Messenger></Messenger>
 
-
+    <Container>
+      <Messenger></Messenger>
+      <Inputs></Inputs>
+    
     </Container>
+
+
   );
 }
 
