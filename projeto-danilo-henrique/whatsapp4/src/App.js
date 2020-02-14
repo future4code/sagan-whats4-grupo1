@@ -19,9 +19,7 @@ function App() {
   return (
 
     <Container>
-      <Messenger></Messenger>
       <Inputs></Inputs>
-    
     </Container>
 
 

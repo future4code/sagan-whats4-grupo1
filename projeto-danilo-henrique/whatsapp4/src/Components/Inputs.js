@@ -2,14 +2,30 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Messenger from './messenger'
+import MessengerEu from './MensagemEu'
 
 const Container = styled.div`
-display: flex;
-height: 5vh;
-box-sizing: border-box;
-padding: 1%;
-align-items: center;
-justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-sizing: border-box;
+`
+const ContainerInput = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  padding: 1%;
+  align-items: center;
+  justify-content: space-between;
+  height: 5vh;
+  background: #e5ddd5;
+`
+const ContainerMessenger = styled.div`
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  background: #e5ddd5;  
 `
 const InputName = styled.input`
   border: none;
@@ -47,7 +63,8 @@ class Inputs extends React.Component {
     this.state = {
       autor: "",
       mensagem: "",
-      listaMsg:[]
+      listaMsg: [],
+      novaMensagem: false
     }
   }
 
@@ -61,21 +78,21 @@ class Inputs extends React.Component {
 
   teclaEnter = (event) => {
     const tecla = event.which;
-    if (tecla === 13 && this.state.autor!=="" && this.state.mensagem!=="") {
+    if (tecla === 13 && this.state.autor !== "" && this.state.mensagem !== "") {
       this.addMensagem();
     }
   }
 
-  clickEnviar = () =>{
-    if (this.state.autor!=="" && this.state.mensagem!=="") {
+  clickEnviar = () => {
+    if (this.state.autor !== "" && this.state.mensagem !== "") {
       this.addMensagem();
     }
   }
 
   addMensagem = () => {
     const novaMensagem = {
-        userName: this.state.autor,
-        userMessenger: this.state.mensagem,
+      userName: this.state.autor,
+      userMessenger: this.state.mensagem,
     };
 
     const novaListaMsg = [...this.state.listaMsg, novaMensagem]
@@ -87,30 +104,41 @@ class Inputs extends React.Component {
     })
   }
 
+  clicou = () => {
+    console.log('oi')
+  }
 
   render() {
-    const msg = this.state.listaMsg.map((elemento,index,array) => {
-      return (
-        <Messenger userName={elemento.userName} userMessenger={elemento.userMessenger} />
-      )
+    const msg = this.state.listaMsg.map((elemento, index, array) => {
+      if (elemento.userName === "eu") {
+        return( <MessengerEu onClick={this.clicou} key={index} userName={elemento.userName} userMessenger={elemento.userMessenger} />)
+      }
+      else {
+        return (<Messenger onClick={this.clicou} key={index} userName={elemento.userName} userMessenger={elemento.userMessenger} />)
+      }
     })
 
     return (
       <Container>
-        {msg}
-        <InputName
-          type="text"
-          placeholder="Usuário"
-          value={this.state.autor}
-          onChange={this.escreveNome}></InputName>
-        <InputMessage
-          type="text"
-          placeholder="Mensagem"
-          value={this.state.mensagem}
-          onChange={this.escreveMensagem}>
-        </InputMessage>
-        <BtnEnviar
-          onClick={this.clickEnviar}>Enviar</BtnEnviar>
+        <ContainerMessenger>
+          {msg}
+        </ContainerMessenger>
+        <ContainerInput>
+          <InputName
+            type="text"
+            placeholder="Usuário"
+            value={this.state.autor}
+            onChange={this.escreveNome}></InputName>
+          <InputMessage
+            type="text"
+            placeholder="Mensagem"
+            value={this.state.mensagem}
+            onChange={this.escreveMensagem}
+            onKeyDown={this.teclaEnter}>
+          </InputMessage>
+          <BtnEnviar
+            onClick={this.clickEnviar}>Enviar</BtnEnviar>
+        </ContainerInput>
       </Container>
     )
   }
