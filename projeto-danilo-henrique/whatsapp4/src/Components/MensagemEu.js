@@ -5,7 +5,7 @@ import styled from "styled-components";
 const ContainerMessenger = styled.div`
     display: flex;
     flex-direction: column;    
-    background: white;    
+    background: pink;    
     box-sizing: border-box;
     margin-bottom: 2%;
     margin-left: 2%;
@@ -13,6 +13,7 @@ const ContainerMessenger = styled.div`
     padding: 2%;
     box-sizing: border-box;
     border-radius:5px;
+    align-self: flex-end;
 `
 
 
@@ -23,7 +24,8 @@ const UserName = styled.span`
 const UserMessenger = styled.span`
 `
 
-class Messenger extends React.Component {
+
+class MessengerEu extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -38,4 +40,4 @@ class Messenger extends React.Component {
   }
 }
 
-export default Messenger
+export default MessengerEu
