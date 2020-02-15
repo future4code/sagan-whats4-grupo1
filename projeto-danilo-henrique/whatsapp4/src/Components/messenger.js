@@ -14,27 +14,44 @@ const ContainerMessenger = styled.div`
     box-sizing: border-box;
     border-radius:5px;
 `
-
-
 const UserName = styled.span`
     font-weight: bold;
     
 `
 const UserMessenger = styled.span`
 `
-
+const UserMessengerApagada = styled.span`
+  font-style: italic;
+`
 class Messenger extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      deletado: false,
+    }
+  }
+
+  onDoubleClickDeletar = () => {
+    let apagarMsg = window.confirm('Você deseja apagar essa mensagem?')
+    if (apagarMsg) {
+      this.setState({
+        deletado: true
+      })
+    }
   }
 
   render() {
-    return (
-      <ContainerMessenger>
+    let estruturaComponente
+
+    if (this.state.deletado) {
+      estruturaComponente = ''
+    } else {
+      estruturaComponente = <ContainerMessenger onDoubleClick={this.onDoubleClickDeletar}>
         <UserName> {this.props.userName} </UserName>
         <UserMessenger> {this.props.userMessenger} </UserMessenger>
       </ContainerMessenger>
-    )
+    }
+    return (estruturaComponente)
   }
 }
 
